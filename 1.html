@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BC CODING CLUB</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #e74c3c;
+        }
+        
+        /* Hero section */
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            background-color: #3498db;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Main content */
+        .main-content {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .sidebar {
+            flex: 0 0 250px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 80px;
+            align-self: flex-start;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+        
+        .sidebar h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 0.5rem;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .sidebar a {
+            color: #3498db;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar a:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .sidebar a.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .content h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 0.5rem;
+        }
+        
+        .content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .code-example {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 5px 5px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        .result-example {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 5px;
+        }
+        
+        .lesson-section {
+            margin-bottom: 3rem;
+        }
+        
+        .lesson-section h3 {
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        
+        .note {
+            background-color: #f8f9fa;
+            border-left: 4px solid #f39c12;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .note strong {
+            color: #f39c12;
+        }
+        
+        /* Resources section */
+        .resources {
+            padding: 3rem 0;
+            background-color: #ecf0f1;
+        }
+        
+        .resources h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .resource-card {
+            background-color: white;
+            border-radius: 5px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .resource-card h3 {
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        
+        .resource-card ul {
+            padding-left: 1.5rem;
+        }
+        
+        .resource-card li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .resource-card a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .resource-card a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #e74c3c;
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #2c3e50;
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                cursor: pointer;
+                font-size: 1.5rem;
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                flex: 0 0 auto;
+                position: static;
+                max-height: none;
+                margin-bottom: 1.5rem;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <div class="logo">HTML Academy</div>
+                <ul class="nav-links">
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#basics">HTML Basics</a></li>
+                    <li><a href="#elements">Common Elements</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+                <div class="mobile-menu-btn">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="title-container">
+            <h1>Learn HTML: The Building Blocks of the Web</h1>
+            <p>Master the fundamentals of HTML to create your own websites from scratch. This beginner-friendly guide will teach you everything you need to know to get started.</p>
+            <a href="#introduction" class="btn">Start Learning</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3>Course Contents</h3>
+                <ul>
+                    <li><a href="#introduction" class="active">What is HTML?</a></li>
+                    <li><a href="#basics">HTML Document Structure</a></li>
+                    <li><a href="#text-formatting">Text Formatting</a></li>
+                    <li><a href="#links">Links</a></li>
+                    <li><a href="#images">Images</a></li>
+                    <li><a href="#lists">Lists</a></li>
+                    <li><a href="#tables">Tables</a></li>
+                    <li><a href="#forms">Forms</a></li>
+                    <li><a href="#semantic">Semantic HTML</a></li>
+                    <li><a href="#next-steps">Next Steps</a></li>
+                </ul>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content">
+                <section id="introduction" class="lesson-section">
+                    <h2>What is HTML?</h2>
+                    <p>HTML (HyperText Markup Language) is the standard markup language for creating web pages. It describes the structure of a web page semantically and is the foundation of all websites.</p>
+                    
+                    <p>HTML uses a series of elements (represented by tags) to define different parts of content such as headings, paragraphs, links, images, etc. Web browsers read HTML documents and render them into visible or audible web pages.</p>
+                    
+                    <div class="note">
+                        <strong>Note:</strong> HTML is not a programming language; it's a markup language that tells browsers how to structure the web content.
+                    </div>
+                    
+                    <h3>Why Learn HTML?</h3>
+                    <p>Learning HTML gives you the power to:</p>
+                    <ul>
+                        <li>Create your own websites from scratch</li>
+                        <li>Understand how web pages work</li>
+                        <li>Customize existing templates</li>
+                        <li>Communicate effectively with web developers</li>
+                        <li>Lay the foundation for learning CSS and JavaScript</li>
+                    </ul>
+                </section>
+                
+                <section id="basics" class="lesson-section">
+                    <h2>HTML Document Structure</h2>
+                    <p>Every HTML document follows a basic structure that includes several key components:</p>
+                    
+                    <div class="code-example">
+                        &lt;!DOCTYPE html&gt;<br>
+                        &lt;html lang="en"&gt;<br>
+                        &lt;head&gt;<br>
+                        &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                        &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                        &nbsp;&nbsp;&lt;title&gt;My First HTML Page&lt;/title&gt;<br>
+                        &lt;/head&gt;<br>
+                        &lt;body&gt;<br>
+                        &nbsp;&nbsp;&lt;h1&gt;Hello, World!&lt;/h1&gt;<br>
+                        &nbsp;&nbsp;&lt;p&gt;This is my first web page.&lt;/p&gt;<br>
+                        &lt;/body&gt;<br>
+                        &lt;/html&gt;
+                    </div>
+                    
+                    <h3>Let's Break Down These Elements:</h3>
+                    
+                    <ul>
+                        <li><strong>&lt;!DOCTYPE html&gt;</strong> - Declares the document type and HTML version</li>
+                        <li><strong>&lt;html&gt;</strong> - The root element that contains all other HTML elements</li>
+                        <li><strong>&lt;head&gt;</strong> - Contains meta-information about the document</li>
+                        <li><strong>&lt;meta&gt;</strong> - Provides metadata such as character set, viewport settings</li>
+                        <li><strong>&lt;title&gt;</strong> - Specifies the title shown in the browser tab</li>
+                        <li><strong>&lt;body&gt;</strong> - Contains all the content that is visible on the page</li>
+                        <li><strong>&lt;h1&gt;</strong> - Defines a main heading</li>
+                        <li><strong>&lt;p&gt;</strong> - Defines a paragraph</li>
+                    </ul>
+                    
+                    <div class="note">
+                        <strong>Remember:</strong> HTML elements typically have an opening tag, content, and a closing tag. Some elements (like &lt;meta&gt;) are self-closing and don't need a closing tag.
+                    </div>
+                </section>
+                
+                <section id="text-formatting" class="lesson-section">
+                    <h2>Text Formatting</h2>
+                    <p>HTML provides various elements for formatting text:</p>
+                    
+                    <div class="code-example">
+                        &lt;h1&gt;This is a heading level 1&lt;/h1&gt;<br>
+                        &lt;h2&gt;This is a heading level 2&lt;/h2&gt;<br>
+                        &lt;h3&gt;This is a heading level 3&lt;/h3&gt;<br>
+                        &lt;h4&gt;This is a heading level 4&lt;/h4&gt;<br>
+                        &lt;h5&gt;This is a heading level 5&lt;/h5&gt;<br>
+                        &lt;h6&gt;This is a heading level 6&lt;/h6&gt;<br>
+                        <br>
+                        &lt;p&gt;This is a paragraph of text.&lt;/p&gt;<br>
+                        <br>
+                        &lt;p&gt;You can use &lt;strong&gt;bold text&lt;/strong&gt; and &lt;em&gt;italic text&lt;/em&gt; for emphasis.&lt;/p&gt;<br>
+                        <br>
+                        &lt;p&gt;This text contains a &lt;br&gt; line break.&lt;/p&gt;<br>
+                        <br>
+                        &lt;p&gt;This is a &lt;mark&gt;highlighted&lt;/mark&gt; text.&lt;/p&gt;
+                    </div>
+                    
+                    <div class="result-example">
+                        <h1 style="font-size: 2rem;">This is a heading level 1</h1>
+                        <h2 style="font-size: 1.5rem;">This is a heading level 2</h2>
+                        <h3 style="font-size: 1.17rem;">This is a heading level 3</h3>
+                        <h4 style="font-size: 1rem;">This is a heading level 4</h4>
+                        <h5 style="font-size: 0.83rem;">This is a heading level 5</h5>
+                        <h6 style="font-size: 0.67rem;">This is a heading level 6</h6>
+                        
+                        <p>This is a paragraph of text.</p>
+                        
+                        <p>You can use <strong>bold text</strong> and <em>italic text</em> for emphasis.</p>
+                        
+                        <p>This text contains a <br> line break.</p>
+                        
+                        <p>This is a <mark>highlighted</mark> text.</p>
+                    </div>
+                </section>
+                
+                <section id="links" class="lesson-section">
+                    <h2>Links</h2>
+                    <p>Links allow users to navigate between web pages. They are created using the &lt;a&gt; (anchor) element:</p>
+                    
+                    <div class="code-example">
+                        &lt;!-- Basic link --&gt;<br>
+                        &lt;a href="https://www.example.com"&gt;Visit Example.com&lt;/a&gt;<br>
+                        <br>
+                        &lt;!-- Link to another page in the same website --&gt;<br>
+                        &lt;a href="about.html"&gt;About Us&lt;/a&gt;<br>
+                        <br>
+                        &lt;!-- Link that opens in a new tab --&gt;<br>
+                        &lt;a href="https://www.example.com" target="_blank"&gt;Open in New Tab&lt;/a&gt;<br>
+                        <br>
+                        &lt;!-- Link to a specific section on the same page --&gt;<br>
+                        &lt;a href="#section-id"&gt;Jump to Section&lt;/a&gt;
+                    </div>
+                    
+                    <div class="result-example">
+                        <a href="https://www.example.com">Visit Example.com</a><br><br>
+                        <a href="about.html">About Us</a><br><br>
+                        <a href="https://www.example.com" target="_blank">Open in New Tab</a><br><br>
+                        <a href="#introduction">Jump to Introduction</a>
+                    </div>
+                </section>
+                
+                <section id="images" class="lesson-section">
+                    <h2>Images</h2>
+                    <p>Images are added to web pages using the &lt;img&gt; element:</p>
+                    
+                    <div class="code-example">
+                        &lt;!-- Basic image --&gt;<br>
+                        &lt;img src="image.jpg" alt="Description of the image"&gt;<br>
+                        <br>
+                        &lt;!-- Image with width and height attributes --&gt;<br>
+                        &lt;img src="logo.png" alt="Company Logo" width="200" height="100"&gt;<br>
+                        <br>
+                        &lt;!-- Image with a link --&gt;<br>
+                        &lt;a href="https://www.example.com"&gt;<br>
+                        &nbsp;&nbsp;&lt;img src="banner.jpg" alt="Click to visit our website"&gt;<br>
+                        &lt;/a&gt;
+                    </div>
+                    
+                    <div class="note">
+                        <strong>Important:</strong> Always include the <code>alt</code> attribute for accessibility. It provides alternative information for users who cannot view the image and helps with SEO.
+                    </div>
+                </section>
+                
+                <section id="lists" class="lesson-section">
+                    <h2>Lists</h2>
+                    <p>HTML provides three types of lists:</p>
+                    
+                    <h3>Unordered Lists</h3>
+                    <div class="code-example">
+                        &lt;ul&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;Item 1&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;Item 2&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;Item 3&lt;/li&gt;<br>
+                        &lt;/ul&gt;
+                    </div>
+                    
+                    <div class="result-example">
+                        <ul>
+                            <li>Item 1</li>
+                            <li>Item 2</li>
+                            <li>Item 3</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Ordered Lists</h3>
+                    <div class="code-example">
+                        &lt;ol&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;First step&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;Second step&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;Third step&lt;/li&gt;<br>
+                        &lt;/ol&gt;
+                    </div>
+                    
+                    <div class="result-example">
+                        <ol>
+                            <li>First step</li>
+                            <li>Second step</li>
+                            <li>Third step</li>
+                        </ol>
+                    </div>
+                    
+                    <h3>Definition Lists</h3>
+                    <div class="code-example">
+                        &lt;dl&gt;<br>
+                        &nbsp;&nbsp;&lt;dt&gt;HTML&lt;/dt&gt;<br>
+                        &nbsp;&nbsp;&lt;dd&gt;HyperText Markup Language&lt;/dd&gt;<br>
+                        &nbsp;&nbsp;&lt;dt&gt;CSS&lt;/dt&gt;<br>
+                        &nbsp;&nbsp;&lt;dd&gt;Cascading Style Sheets&lt;/dd&gt;<br>
+                        &lt;/dl&gt;
+                    </div>
+                    
+                    <div class="result-example">
+                        <dl>
+                            <dt>HTML</dt>
+                            <dd>HyperText Markup Language</dd>
+                            <dt>CSS</dt>
+                            <dd>Cascading Style Sheets</dd>
+                        </dl>
+                    </div>
+                </section>
+                
+                <section id="tables" class="lesson-section">
+                    <h2>Tables</h2>
+                    <p>Tables are used to display data in rows and columns:</p>
+                    
+                    <div class="code-example">
+                        &lt;table&gt;<br>
+                        &nbsp;&nbsp;&lt;thead&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Name&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Age&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Country&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &nbsp;&nbsp;&lt;/thead&gt;<br>
+                        &nbsp;&nbsp;&lt;tbody&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;John Doe&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;25&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;USA&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Jane Smith&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;30&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Canada&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &nbsp;&nbsp;&lt;/tbody&gt;<br>
+                        &lt;/table&gt;
+                    </div>
+                    
+                    <div class="result-example">
+                        <table border="1" style="border-collapse: collapse; width: 100%;">
+                            <thead>
+                                <tr style="background-color: #f2f2f2;">
+                                    <th style="padding: 8px; text-align: left;">Name</th>
+                                    <th style="padding: 8px; text-align: left;">Age</th>
+                                    <th style="padding: 8px; text-align: left;">Country</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 8px;">John Doe</td>
+                                    <td style="padding: 8px;">25</td>
+                                    <td style="padding: 8px;">USA</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px;">Jane Smith</td>
+                                    <td style="padding: 8px;">30</td>
+                                    <td style="padding: 8px;">Canada</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <section id="forms" class="lesson-section">
+                    <h2>Forms</h2>
+                    <p>Forms allow users to input data and submit it to a server:</p>
+                    
+                    <div class="code-example">
+                        &lt;form action="/submit-form" method="post"&gt;<br>
+                        &nbsp;&nbsp;&lt;div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;label for="name"&gt;Name:&lt;/label&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" id="name" name="name" required&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;label for="email"&gt;Email:&lt;/label&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="email" id="email" name="email" required&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;label for="message"&gt;Message:&lt;/label&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;textarea id="message" name="message" rows="4" required&gt;&lt;/textarea&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;label for="country"&gt;Country:&lt;/label&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;select id="country" name="country"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="usa"&gt;USA&lt;/option&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="canada"&gt;Canada&lt;/option&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="uk"&gt;UK&lt;/option&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;label&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="checkbox" name="subscribe" value="yes"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subscribe to newsletter<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/label&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;button type="submit"&gt;Submit&lt;/button&gt;<br>
+                        &lt;/form&gt;
+                    </div>
+                    
+                    <div class="result-example">
+                        <form style="display: grid; gap: 15px;">
+                            <div>
+                                <label for="name">Name:</label><br>
+                                <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; margin-top: 5px;">
+                            </div>
+                            <div>
+                                <label for="email">Email:</label><br>
+                                <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; margin-top: 5px;">
+                            </div>
+                            <div>
+                                <label for="message">Message:</label><br>
+                                <textarea id="message" name="message" rows="4" required style="width: 100%; padding: 8px; margin-top: 5px;"></textarea>
+                            </div>
+                            <div>
+                                <label for="country">Country:</label><br>
+                                <select id="country" name="country" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                    <option value="usa">USA</option>
+                                    <option value="canada">Canada</option>
+                                    <option value="uk">UK</option>
+                                </select>
